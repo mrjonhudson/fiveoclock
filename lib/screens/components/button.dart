@@ -277,7 +277,7 @@ class _ButtonState extends State<Button> {
                             // running on the web!
                             FlutterClipboard.copy('OMG! It\'s five o\'clock in ' +
                                     _city +
-                                    '! That means we can start drinking now!! Check for yourself at https://www.google.com/!')
+                                    '! That means we can start drinking now!! Check for yourself at https://fiveoclock-62362.web.app/!')
                                 .then((value) => print('copied'));
                             bar = new SnackBar(
                               content: Text('Copied to clipboard!',
@@ -290,7 +290,7 @@ class _ButtonState extends State<Button> {
                           } else {
                             Share.share('OMG! It\'s five o\'clock in ' +
                                 _city +
-                                '! That means we can start drinking now!! Check for yourself at https://www.google.com/!');
+                                '! That means we can start drinking now!! Check for yourself at https://fiveoclock-62362.web.app/!');
                           }
                         }),
                   ),
