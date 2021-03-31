@@ -1,6 +1,8 @@
 # fiveoclock
+It's always 5 o'clock somewhere, so here's an app to prove to your friends that indeed you can start drinking!
 
-A new Flutter project.
+## About
+A flutter project built for iOS and Android.
 
 ## With thanks to:
 
