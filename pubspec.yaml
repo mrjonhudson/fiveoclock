@@ -34,6 +34,8 @@ dependencies:
   timezone: ^0.7.0
   maps_launcher: ^1.2.2+2
   share: ^2.0.1
+  clipboard: ^0.1.3
+  snack: ^1.0.5
 
 dev_dependencies:
   flutter_test:

@@ -18,6 +18,9 @@ import 'package:timezone/timezone.dart';
 import 'package:flutter/services.dart';
 
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:flutter/foundation.dart';
+import 'package:snack/snack.dart';
+import 'package:clipboard/clipboard.dart';
 
 Random rnd = new Random();
 
@@ -37,6 +40,8 @@ class _ButtonState extends State<Button> {
 
   List _items = [];
   List _timezones = [];
+
+  SnackBar bar;
 
   // Fetch content from the json file
   Future<void> readJson() async {
@@ -100,6 +105,7 @@ class _ButtonState extends State<Button> {
       currentTime = DateTime.now();
       fivePM = new DateTime(
           currentTime.year, currentTime.month, currentTime.day, 17);
+      bar = SnackBar(content: Text('Hello, world!'));
     });
     setupTZs();
 
@@ -267,8 +273,25 @@ class _ButtonState extends State<Button> {
                         color: Theme.of(context).primaryIconTheme.color,
                         icon: new Icon(Icons.share, size: getSmallestSize(25)),
                         onPressed: () {
-                          Share.share(
-                              'check out my website https://stewdent.app!');
+                          if (kIsWeb) {
+                            // running on the web!
+                            FlutterClipboard.copy('OMG! It\'s five o\'clock in ' +
+                                    _city +
+                                    '! That means we can start drinking now!! Check for yourself at https://www.google.com/!')
+                                .then((value) => print('copied'));
+                            bar = new SnackBar(
+                              content: Text('Copied to clipboard!',
+                                  style: Theme.of(context).textTheme.bodyText2),
+                              backgroundColor:
+                                  Theme.of(context).primaryIconTheme.color,
+                              behavior: SnackBarBehavior.floating,
+                            );
+                            bar.show(context);
+                          } else {
+                            Share.share('OMG! It\'s five o\'clock in ' +
+                                _city +
+                                '! That means we can start drinking now!! Check for yourself at https://www.google.com/!');
+                          }
                         }),
                   ),
                 )
