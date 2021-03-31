@@ -12,6 +12,7 @@ import '../../constants.dart';
 import '../../size_config.dart';
 import 'clock_painter.dart';
 import 'dart:convert';
+import 'package:share/share.dart';
 
 import 'package:timezone/timezone.dart';
 import 'package:flutter/services.dart';
@@ -151,17 +152,12 @@ class _ButtonState extends State<Button> {
         _items.length > 0
             ? SizedBox(
                 height: getProportionateScreenHeight(100),
-                child: new GestureDetector(
-                  onTap: () {
-                    print("Container clicked");
-                    MapsLauncher.launchQuery(_city + ", " + _country);
-                  },
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(_city,
-                        style: Theme.of(context).textTheme.headline1),
-                  ),
-                ))
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child:
+                      Text(_city, style: Theme.of(context).textTheme.headline1),
+                ),
+              )
             : Container(),
         _items.length > 0
             ? SizedBox(
@@ -176,45 +172,109 @@ class _ButtonState extends State<Button> {
         Expanded(child: Container()),
         Padding(
             padding: EdgeInsets.symmetric(
-                vertical: getProportionateScreenHeight(41)),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: double.infinity),
-              child: ElevatedButton(
-                child: Text(
-                  "Bottoms Up!",
-                  style: GoogleFonts.lato(
-                    textStyle: Theme.of(context).textTheme.headline5,
+                vertical: getProportionateScreenHeight(50)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                    height: getSmallestSize(57),
+                    width: getSmallestSize(57),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(18, 18),
+                            color: kShadowColorLight1,
+                            blurRadius: 30,
+                          ),
+                          BoxShadow(
+                            offset: Offset(-18, -18),
+                            color: kShadowColorLight2,
+                            blurRadius: 30,
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        padding: new EdgeInsets.all(0.0),
+                        color: Theme.of(context).primaryIconTheme.color,
+                        icon: new Icon(Icons.map, size: getSmallestSize(25)),
+                        onPressed: () {
+                          print("Container clicked");
+                          MapsLauncher.launchQuery(_city + ", " + _country);
+                        },
+                      ),
+                    )),
+                Container(
+                  width: getProportionateScreenWidth(40),
+                ),
+                SizedBox(
+                    height: getSmallestSize(77),
+                    width: getSmallestSize(77),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(18, 18),
+                            color: kShadowColorLight1,
+                            blurRadius: 30,
+                          ),
+                          BoxShadow(
+                            offset: Offset(-18, -18),
+                            color: kShadowColorLight2,
+                            blurRadius: 30,
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        padding: new EdgeInsets.all(0.0),
+                        color: Theme.of(context).accentIconTheme.color,
+                        icon: new Icon(Icons.local_bar,
+                            size: getSmallestSize(40)),
+                        onPressed: changeText,
+                      ),
+                    )),
+                Container(
+                  width: getProportionateScreenWidth(40),
+                ),
+                SizedBox(
+                  height: getSmallestSize(57),
+                  width: getSmallestSize(57),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).backgroundColor,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(18, 18),
+                          color: kShadowColorLight1,
+                          blurRadius: 30,
+                        ),
+                        BoxShadow(
+                          offset: Offset(-18, -18),
+                          color: kShadowColorLight2,
+                          blurRadius: 30,
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                        padding: new EdgeInsets.all(0.0),
+                        color: Theme.of(context).primaryIconTheme.color,
+                        icon: new Icon(Icons.share, size: getSmallestSize(25)),
+                        onPressed: () {
+                          Share.share(
+                              'check out my website https://stewdent.app!');
+                        }),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).backgroundColor,
-                  onPrimary: Theme.of(context).primaryColor,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(1000)),
-                ),
-                onPressed: () {
-                  changeText();
-                },
-              ),
-            )),
+                )
+              ],
+            ))
       ],
     );
-  }
-
-  Widget countryText() {}
-
-  setCity(String city) {
-    setState(() {
-      ((state % 2) == 1) ? _city = city : _city = "London";
-      print(state);
-      state++;
-    });
-  }
-
-  setCountry(String country) {
-    setState(() {
-      _country = country;
-    });
   }
 }

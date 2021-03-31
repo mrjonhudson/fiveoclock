@@ -7,7 +7,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'screens/home_screen.dart';
 
 void main() {
-  tz.initializeTimeZones();
+  //tz.initializeTimeZones();
   runApp(MyApp());
 }
 
@@ -15,6 +15,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    precacheImage(
+        AssetImage("assets/images/the_bishops_mill_durham.png"), context);
     return ChangeNotifierProvider(
         create: (context) => MyThemeModel(),
         child: Consumer<MyThemeModel>(

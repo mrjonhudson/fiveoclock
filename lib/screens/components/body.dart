@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
         alignment: Alignment.center, // and bottomLeft
         child: SafeArea(
             child: Container(
-                constraints: BoxConstraints(maxWidth: 588),
+                constraints: BoxConstraints(maxWidth: 588, minHeight: 485),
                 padding: EdgeInsets.symmetric(horizontal: 37),
                 child: Stack(children: [
                   /*
@@ -45,7 +45,7 @@ class Body extends StatelessWidget {
                                   child: Button())),
                           SizedBox(
                             height: 20,
-                            child: Text("Carpet of __",
+                            child: Text("Carpet of The Bishop's Mill, Durham",
                                 style: Theme.of(context).textTheme.bodyText1),
                           )
                         ],

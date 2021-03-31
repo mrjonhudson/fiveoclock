@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import '../../size_config.dart';
 
 class ClockPainter extends CustomPainter {
   final BuildContext context;
@@ -26,7 +27,7 @@ class ClockPainter extends CustomPainter {
       Paint()
         ..color = Theme.of(context).accentColor
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 10
+        ..strokeWidth = getSmallestSize(10)
         ..strokeCap = StrokeCap.round,
     );
 
@@ -49,10 +50,11 @@ class ClockPainter extends CustomPainter {
       Paint()
         ..color = Theme.of(context).colorScheme.secondary
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 10
+        ..strokeWidth = getSmallestSize(10)
         ..strokeCap = StrokeCap.round,
     );
 
+/*
     // Second Calculation
     // size.width * 0.4 define our line height
     // dateTime.second * 6 because 360 / 60 = 6
@@ -70,13 +72,13 @@ class ClockPainter extends CustomPainter {
         ..strokeCap = StrokeCap.round,
     );
 
+*/
 // center Dots
-    Paint dotPainter = Paint()
-      ..color = Theme.of(context).primaryIconTheme.color;
-    canvas.drawCircle(center, 24, dotPainter);
-    canvas.drawCircle(
-        center, 23, Paint()..color = Theme.of(context).backgroundColor);
-    canvas.drawCircle(center, 10, dotPainter);
+    Paint dotPainter = Paint()..color = Theme.of(context).colorScheme.secondary;
+    canvas.drawCircle(center, getSmallestSize(24), dotPainter);
+    canvas.drawCircle(center, getSmallestSize(24),
+        Paint()..color = Theme.of(context).backgroundColor);
+    canvas.drawCircle(center, getSmallestSize(10), dotPainter);
   }
 
   @override

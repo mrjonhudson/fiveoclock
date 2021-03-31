@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -35,4 +36,9 @@ double getProportionateTextSize(double inputHeight) {
   // 896 is the layout height that designer use
   // or you can say iPhone 11
   return ((inputHeight / 896.0) * screenHeight).round().toDouble();
+}
+
+double getSmallestSize(double inputSize) {
+  return min(getProportionateScreenHeight(inputSize),
+      getProportionateScreenWidth(inputSize));
 }

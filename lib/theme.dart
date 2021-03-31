@@ -10,18 +10,20 @@ ThemeData themeData(BuildContext context) {
       appBarTheme: appBarTheme,
       primaryColor: kPrimaryColor,
       accentColor: kAccentLightColor,
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: kBackgroundLightColor,
       colorScheme: ColorScheme.light(
-        secondary: kSecondaryLightColor,
-        // on light theme surface = Colors.white by default
-      ),
+          secondary: kSecondaryLightColor, background: kBackgroundLightColor
+          // on light theme surface = Colors.white by default
+          ),
       backgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: kBodyTextColorLight),
+      iconTheme: IconThemeData(
+        color: kBodyTextColorLight,
+      ),
       accentIconTheme: IconThemeData(color: kAccentIconLightColor),
-      primaryIconTheme: IconThemeData(color: kPrimaryIconLightColor),
+      primaryIconTheme: IconThemeData(color: kAccentIconDarkColor),
       textTheme: GoogleFonts.robotoTextTheme().copyWith(
-        bodyText1: TextStyle(color: kBodyTextColorLight),
-        bodyText2: TextStyle(color: kBodyTextColorLight),
+        bodyText1: TextStyle(color: kShadowColorLight1, fontSize: 12),
+        bodyText2: TextStyle(color: kShadowColorLight1),
         headline5: TextStyle(
             color: kTitleTextLightColor,
             fontSize: 32), //getProportionateTextSize(32)),

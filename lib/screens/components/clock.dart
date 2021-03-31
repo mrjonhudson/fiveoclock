@@ -35,28 +35,42 @@ class _ClockState extends State<Clock> {
         Padding(
             padding: EdgeInsets.symmetric(
                 vertical: getProportionateScreenHeight(37),
-                horizontal: 37), //getProportionateScreenWidth(37)),
-            child: AspectRatio(
-              aspectRatio: 1,
+                horizontal: getProportionateScreenWidth(
+                    37)), //getProportionateScreenWidth(37)),
+            child: Container(
+              height: getSmallestSize(323),
+              width: getSmallestSize(323),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image:
+                      AssetImage("assets/images/the_bishops_mill_durham.png"),
+                  fit: BoxFit.cover,
+                ),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(18, 18),
+                    color: kShadowColorLight1,
+                    blurRadius: 30,
+                  ),
+                  BoxShadow(
+                    offset: Offset(-18, -18),
+                    color: kShadowColorLight2,
+                    blurRadius: 30,
+                  ),
+                ],
+              ),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-
-                  /*
-                  image: DecorationImage(
-                    image:
-                        AssetImage("assets/images/the_bishops_mill_durham.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  */
+                  color: Theme.of(context)
+                      .colorScheme
+                      .background
+                      .withOpacity(0.25),
+                  border: new Border.all(
+                      color: Theme.of(context).backgroundColor,
+                      width: getSmallestSize(12),
+                      style: BorderStyle.solid),
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 0),
-                      color: kShadowColor.withOpacity(0.14),
-                      blurRadius: 64,
-                    ),
-                  ],
                 ),
                 child: Transform.rotate(
                   angle: -pi / 2,
