@@ -34,9 +34,7 @@ class _ClockState extends State<Clock> {
       children: [
         Padding(
             padding: EdgeInsets.symmetric(
-                vertical: getProportionateScreenHeight(37),
-                horizontal: getProportionateScreenWidth(
-                    37)), //getProportionateScreenWidth(37)),
+                vertical: getSmallestSize(37), horizontal: getSmallestSize(37)),
             child: Container(
               height: getSmallestSize(323),
               width: getSmallestSize(323),

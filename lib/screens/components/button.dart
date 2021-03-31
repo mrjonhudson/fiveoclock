@@ -215,7 +215,7 @@ class _ButtonState extends State<Button> {
                       ),
                     )),
                 Container(
-                  width: getProportionateScreenWidth(40),
+                  width: min(150, getProportionateScreenWidth(40)),
                 ),
                 SizedBox(
                     height: getSmallestSize(77),
@@ -246,7 +246,7 @@ class _ButtonState extends State<Button> {
                       ),
                     )),
                 Container(
-                  width: getProportionateScreenWidth(40),
+                  width: min(150, getProportionateScreenWidth(40)),
                 ),
                 SizedBox(
                   height: getSmallestSize(57),
