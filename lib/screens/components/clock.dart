@@ -33,51 +33,50 @@ class _ClockState extends State<Clock> {
     return Stack(
       children: [
         Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: getSmallestSize(37), horizontal: getSmallestSize(37)),
-            child: Container(
-              height: getSmallestSize(323),
-              width: getSmallestSize(323),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image:
-                      AssetImage("assets/images/the_bishops_mill_durham.png"),
-                  fit: BoxFit.cover,
-                ),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(18, 18),
-                    color: kShadowColorLight1,
-                    blurRadius: 30,
-                  ),
-                  BoxShadow(
-                    offset: Offset(-18, -18),
-                    color: kShadowColorLight2,
-                    blurRadius: 30,
-                  ),
-                ],
+          padding: EdgeInsets.symmetric(
+              vertical: getSmallestSize(37), horizontal: getSmallestSize(37)),
+          child: Container(
+            height: getSmallestSize(323),
+            width: getSmallestSize(323),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/the_bishops_mill_durham.png"),
+                fit: BoxFit.cover,
               ),
-              child: Container(
-                decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(18, 18),
+                  color: kShadowColorLight1,
+                  blurRadius: 30,
+                ),
+                BoxShadow(
+                  offset: Offset(-18, -18),
+                  color: kShadowColorLight2,
+                  blurRadius: 30,
+                ),
+              ],
+            ),
+            child: Container(
+              decoration: ShapeDecoration(
                   color: Theme.of(context)
                       .colorScheme
                       .background
                       .withOpacity(0.25),
-                  border: new Border.all(
-                      color: Theme.of(context).backgroundColor,
-                      width: getSmallestSize(12),
-                      style: BorderStyle.solid),
-                  shape: BoxShape.circle,
-                ),
-                child: Transform.rotate(
-                  angle: -pi / 2,
-                  child: CustomPaint(
-                    painter: ClockPainter(context, _dateTime),
-                  ),
+                  shape: CircleBorder(
+                      side: BorderSide(
+                          color: Theme.of(context).colorScheme.background,
+                          width: getSmallestSize(12),
+                          style: BorderStyle.solid))),
+              child: Transform.rotate(
+                angle: -pi / 2,
+                child: CustomPaint(
+                  painter: ClockPainter(context, _dateTime),
                 ),
               ),
-            )),
+            ),
+          ),
+        )
       ],
     );
   }

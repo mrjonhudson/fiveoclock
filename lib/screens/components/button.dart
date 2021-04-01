@@ -30,8 +30,8 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
-  String _city;
-  String _country;
+  String _city = "Loading...";
+  String _country = "Please wait";
   String _state;
   String oldPlace;
   int state;
@@ -44,7 +44,7 @@ class _ButtonState extends State<Button> {
   SnackBar bar;
 
   // Fetch content from the json file
-  Future<void> readJson() async {
+  readJson() async {
     final String response = await rootBundle.loadString('data/cityMap.json');
     final data = await json.decode(response);
     setState(() {
@@ -98,19 +98,24 @@ class _ButtonState extends State<Button> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _city = "Loading...";
-      _country = "ld";
-      state = 0;
-      currentTime = DateTime.now();
-      fivePM = new DateTime(
-          currentTime.year, currentTime.month, currentTime.day, 17);
-      bar = SnackBar(content: Text('Hello, world!'));
-    });
     setupTZs();
-
-    //print('Detroit Time: ' + getLocation(indiaTime).toString());
     readJson();
+    // Open Main page
+    setState(() {
+      setState(() {
+        _city = "Loading...";
+        _country = "ld";
+        state = 0;
+        currentTime = DateTime.now();
+        fivePM = new DateTime(
+            currentTime.year, currentTime.month, currentTime.day, 17);
+        bar = SnackBar(content: Text('Hello, world!'));
+      });
+    });
+  }
+
+  void handleAsync() async {
+    // Wait for async to complete
   }
 
   changeText() {
@@ -189,7 +194,7 @@ class _ButtonState extends State<Button> {
                     width: getSmallestSize(57),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
+                        color: Theme.of(context).colorScheme.background,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -253,7 +258,7 @@ class _ButtonState extends State<Button> {
                   width: getSmallestSize(57),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).colorScheme.background,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(

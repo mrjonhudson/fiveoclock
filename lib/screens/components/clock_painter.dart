@@ -77,7 +77,7 @@ class ClockPainter extends CustomPainter {
     Paint dotPainter = Paint()..color = Theme.of(context).colorScheme.secondary;
     canvas.drawCircle(center, getSmallestSize(24), dotPainter);
     canvas.drawCircle(center, getSmallestSize(24),
-        Paint()..color = Theme.of(context).backgroundColor);
+        Paint()..color = Theme.of(context).colorScheme.background);
     canvas.drawCircle(center, getSmallestSize(10), dotPainter);
   }
 
