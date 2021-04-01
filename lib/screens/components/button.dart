@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+//import 'dart:io';
 
 import 'package:fiveoclock/models/my_theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class Button extends StatefulWidget {
   _ButtonState createState() => _ButtonState();
 }
 
-class _ButtonState extends State<Button> {
+class _ButtonState extends State<Button> with TickerProviderStateMixin {
   String _city = "Getting data...";
   String _country = "Please wait";
   String _state;
@@ -37,11 +38,15 @@ class _ButtonState extends State<Button> {
   int state;
   DateTime currentTime;
   DateTime fivePM;
+  bool invisible = true;
 
   List _items = [];
   List _allCities = [];
   List _bigCities = [];
   List _timezones = [];
+
+  AnimationController animation;
+  Animation<double> _fadeInFadeOut;
 
   SnackBar bar;
 
@@ -97,6 +102,7 @@ class _ButtonState extends State<Button> {
     List bigPlaces = [];
     for (dynamic place in cities) {
       if (place["pop"] > 1000000) {
+        print(place["pop"]);
         bigPlaces.add(place);
       }
     }
@@ -106,6 +112,20 @@ class _ButtonState extends State<Button> {
   @override
   void initState() {
     super.initState();
+    animation = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+    _fadeInFadeOut = Tween<double>(begin: 1, end: 0).animate(animation);
+
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        changeText();
+        animation.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        //animation.forward();
+      }
+    });
     setupTZs();
     readJson();
     // Open Main page
@@ -165,44 +185,50 @@ class _ButtonState extends State<Button> {
         */
         // Display the data loaded from sample.json
         SizedBox(
-          height: getProportionateScreenHeight(100),
-          child: FittedBox(
+            height: getProportionateScreenHeight(100),
+            child: FittedBox(
               fit: BoxFit.contain,
               child: GestureDetector(
-                onTap: () {
-                  if ((state % 2) == 0) {
-                    if (_bigCities.length > 1) {
+                  onTap: () {
+                    if ((state % 2) == 0) {
+                      if (_bigCities.length > 1) {
+                        bar = new SnackBar(
+                          content: Text('Switched to cities.',
+                              style: Theme.of(context).textTheme.bodyText2),
+                          backgroundColor:
+                              Theme.of(context).primaryIconTheme.color,
+                          behavior: SnackBarBehavior.floating,
+                        );
+                        _items = _bigCities;
+                      }
+                    } else {
                       bar = new SnackBar(
-                        content: Text('Switched to cities.',
+                        content: Text('Switched to all places.',
                             style: Theme.of(context).textTheme.bodyText2),
                         backgroundColor:
                             Theme.of(context).primaryIconTheme.color,
                         behavior: SnackBarBehavior.floating,
                       );
-                      _items = _bigCities;
+                      _items = _allCities;
                     }
-                  } else {
-                    bar = new SnackBar(
-                      content: Text('Switched to all places.',
-                          style: Theme.of(context).textTheme.bodyText2),
-                      backgroundColor: Theme.of(context).primaryIconTheme.color,
-                      behavior: SnackBarBehavior.floating,
-                    );
-                    _items = _allCities;
-                  }
-                  bar.show(context);
-                  state++;
-                },
-                child:
-                    Text(_city, style: Theme.of(context).textTheme.headline1),
-              )),
-        ),
+                    bar.show(context);
+                    state++;
+                  },
+                  child: FadeTransition(
+                      opacity: _fadeInFadeOut,
+                      child: Text(_city,
+                          key: Key('3'),
+                          style: Theme.of(context).textTheme.headline1))),
+            )),
         SizedBox(
           height: getProportionateScreenHeight(42),
           child: FittedBox(
-            fit: BoxFit.contain,
-            child: Text(_country, style: Theme.of(context).textTheme.headline4),
-          ),
+              fit: BoxFit.contain,
+              child: FadeTransition(
+                  opacity: _fadeInFadeOut,
+                  child: Text(_country,
+                      key: Key('3'),
+                      style: Theme.of(context).textTheme.headline1))),
         ),
         Expanded(child: Container()),
         Padding(
@@ -271,7 +297,9 @@ class _ButtonState extends State<Button> {
                         color: Theme.of(context).accentIconTheme.color,
                         icon: new Icon(Icons.local_bar,
                             size: getSmallestSize(45)),
-                        onPressed: changeText,
+                        onPressed: () {
+                          animation.forward();
+                        },
                       ),
                     )),
                 Container(
