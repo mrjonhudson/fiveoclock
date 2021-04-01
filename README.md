@@ -1,5 +1,5 @@
 # fiveoclock
-It's always 5 o'clock somewhere, so prove to your friends that indeed you can start drinking!  
+It's always 5 o'clock somewhere, so prove to your friends that it is time to start drinking!  
 [fiveoclock-62362.web.app](https://fiveoclock-62362.web.app/#/)
 
 
