@@ -30,7 +30,7 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
-  String _city = "Loading...";
+  String _city = "Getting data...";
   String _country = "Please wait";
   String _state;
   String oldPlace;
@@ -39,6 +39,8 @@ class _ButtonState extends State<Button> {
   DateTime fivePM;
 
   List _items = [];
+  List _allCities = [];
+  List _bigCities = [];
   List _timezones = [];
 
   SnackBar bar;
@@ -49,7 +51,9 @@ class _ButtonState extends State<Button> {
     final data = await json.decode(response);
     setState(() {
       _timezones = getTimeZones(data);
-      _items = filterCities(data, _timezones);
+      _allCities = filterCities(data, _timezones);
+      _bigCities = filterSmallCities(_allCities);
+      _items = _allCities;
       changeText();
     });
   }
@@ -67,12 +71,6 @@ class _ButtonState extends State<Button> {
           new TZDateTime.from(currentTime, getLocation(tz.toString()));
 
       int difference = (int.parse(tzTime.hour.toString())) - 17;
-      //print(tz.toString());
-      //print(tzTime.toString());
-      //print(fivePM.toString());
-      //print(tzTime.difference(currentTime).inHours);
-      //print(difference);
-      //print(difference);
       if (difference == 0) {
         //print(tz.toString());
         tzs.add(tz.toString());
@@ -95,6 +93,16 @@ class _ButtonState extends State<Button> {
     return places;
   }
 
+  List filterSmallCities(dynamic cities) {
+    List bigPlaces = [];
+    for (dynamic place in cities) {
+      if (place["pop"] > 1000000) {
+        bigPlaces.add(place);
+      }
+    }
+    return bigPlaces;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -102,15 +110,11 @@ class _ButtonState extends State<Button> {
     readJson();
     // Open Main page
     setState(() {
-      setState(() {
-        _city = "Loading...";
-        _country = "ld";
-        state = 0;
-        currentTime = DateTime.now();
-        fivePM = new DateTime(
-            currentTime.year, currentTime.month, currentTime.day, 17);
-        bar = SnackBar(content: Text('Hello, world!'));
-      });
+      state = 0;
+      currentTime = DateTime.now();
+      fivePM = new DateTime(
+          currentTime.year, currentTime.month, currentTime.day, 17);
+      bar = SnackBar(content: Text('Hello, world!'));
     });
   }
 
@@ -160,26 +164,46 @@ class _ButtonState extends State<Button> {
         Text(_items[index]["city_ascii"])
         */
         // Display the data loaded from sample.json
-        _items.length > 0
-            ? SizedBox(
-                height: getProportionateScreenHeight(100),
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child:
-                      Text(_city, style: Theme.of(context).textTheme.headline1),
-                ),
-              )
-            : Container(),
-        _items.length > 0
-            ? SizedBox(
-                height: getProportionateScreenHeight(42),
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(_country,
-                      style: Theme.of(context).textTheme.headline4),
-                ),
-              )
-            : Container(),
+        SizedBox(
+          height: getProportionateScreenHeight(100),
+          child: FittedBox(
+              fit: BoxFit.contain,
+              child: GestureDetector(
+                onTap: () {
+                  if ((state % 2) == 0) {
+                    if (_bigCities.length > 1) {
+                      bar = new SnackBar(
+                        content: Text('Switched to cities.',
+                            style: Theme.of(context).textTheme.bodyText2),
+                        backgroundColor:
+                            Theme.of(context).primaryIconTheme.color,
+                        behavior: SnackBarBehavior.floating,
+                      );
+                      _items = _bigCities;
+                    }
+                  } else {
+                    bar = new SnackBar(
+                      content: Text('Switched to all places.',
+                          style: Theme.of(context).textTheme.bodyText2),
+                      backgroundColor: Theme.of(context).primaryIconTheme.color,
+                      behavior: SnackBarBehavior.floating,
+                    );
+                    _items = _allCities;
+                  }
+                  bar.show(context);
+                  state++;
+                },
+                child:
+                    Text(_city, style: Theme.of(context).textTheme.headline1),
+              )),
+        ),
+        SizedBox(
+          height: getProportionateScreenHeight(42),
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: Text(_country, style: Theme.of(context).textTheme.headline4),
+          ),
+        ),
         Expanded(child: Container()),
         Padding(
             padding: EdgeInsets.symmetric(
@@ -199,12 +223,12 @@ class _ButtonState extends State<Button> {
                         boxShadow: [
                           BoxShadow(
                             offset: Offset(18, 18),
-                            color: kShadowColorLight1,
+                            color: Theme.of(context).shadowColor,
                             blurRadius: 30,
                           ),
                           BoxShadow(
                             offset: Offset(-18, -18),
-                            color: kShadowColorLight2,
+                            color: Theme.of(context).colorScheme.secondary,
                             blurRadius: 30,
                           ),
                         ],
@@ -232,12 +256,12 @@ class _ButtonState extends State<Button> {
                         boxShadow: [
                           BoxShadow(
                             offset: Offset(18, 18),
-                            color: kShadowColorLight1,
+                            color: Theme.of(context).shadowColor,
                             blurRadius: 30,
                           ),
                           BoxShadow(
                             offset: Offset(-18, -18),
-                            color: kShadowColorLight2,
+                            color: Theme.of(context).colorScheme.secondary,
                             blurRadius: 30,
                           ),
                         ],
@@ -246,7 +270,7 @@ class _ButtonState extends State<Button> {
                         padding: new EdgeInsets.all(0.0),
                         color: Theme.of(context).accentIconTheme.color,
                         icon: new Icon(Icons.local_bar,
-                            size: getSmallestSize(40)),
+                            size: getSmallestSize(45)),
                         onPressed: changeText,
                       ),
                     )),
@@ -263,12 +287,12 @@ class _ButtonState extends State<Button> {
                       boxShadow: [
                         BoxShadow(
                           offset: Offset(18, 18),
-                          color: kShadowColorLight1,
+                          color: Theme.of(context).shadowColor,
                           blurRadius: 30,
                         ),
                         BoxShadow(
                           offset: Offset(-18, -18),
-                          color: kShadowColorLight2,
+                          color: Theme.of(context).colorScheme.secondary,
                           blurRadius: 30,
                         ),
                       ],

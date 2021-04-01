@@ -54,7 +54,6 @@ class ClockPainter extends CustomPainter {
         ..strokeCap = StrokeCap.round,
     );
 
-/*
     // Second Calculation
     // size.width * 0.4 define our line height
     // dateTime.second * 6 because 360 / 60 = 6
@@ -72,7 +71,6 @@ class ClockPainter extends CustomPainter {
         ..strokeCap = StrokeCap.round,
     );
 
-*/
 // center Dots
     Paint dotPainter = Paint()..color = Theme.of(context).colorScheme.secondary;
     canvas.drawCircle(center, getSmallestSize(24), dotPainter);

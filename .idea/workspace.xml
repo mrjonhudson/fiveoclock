@@ -4,7 +4,13 @@
     <list default="true" id="002ee1a7-e865-49db-8a56-27723d97da7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGRcd2Vi.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGRcd2Vi.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/my_theme_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/my_theme_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/components/button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/components/button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/components/clock.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/components/clock.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/theme.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,7 +18,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="pixel_3_xl_-_api_28" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>

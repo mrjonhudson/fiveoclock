@@ -47,12 +47,12 @@ class _ClockState extends State<Clock> {
               boxShadow: [
                 BoxShadow(
                   offset: Offset(18, 18),
-                  color: kShadowColorLight1,
+                  color: Theme.of(context).shadowColor,
                   blurRadius: 30,
                 ),
                 BoxShadow(
                   offset: Offset(-18, -18),
-                  color: kShadowColorLight2,
+                  color: Theme.of(context).colorScheme.secondary,
                   blurRadius: 30,
                 ),
               ],
@@ -64,10 +64,13 @@ class _ClockState extends State<Clock> {
                       .background
                       .withOpacity(0.25),
                   shape: CircleBorder(
+                      /*
                       side: BorderSide(
                           color: Theme.of(context).colorScheme.background,
                           width: getSmallestSize(12),
                           style: BorderStyle.solid))),
+                          */
+                      )),
               child: Transform.rotate(
                 angle: -pi / 2,
                 child: CustomPaint(
